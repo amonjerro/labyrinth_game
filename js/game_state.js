@@ -137,6 +137,6 @@ function initialize(){
     gameState.borders['r'] = new Border(gameState.theCanvas.width-20, 21, 20, gameState.theCanvas.height-42)
 
     changeLevel(0)
-    paintPlayer()
+    paintStart()
     showStartingWalls()
 }

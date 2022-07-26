@@ -52,6 +52,23 @@ function paintPlayer(){
     gameState.fillStyle = '#000'
     gameState.cnvCtx.arc(centerX, centerY, gameState.player.size, 0, 2*Math.PI)
     gameState.cnvCtx.fill()
-
+    gameState.cnvCtx.closePath()
 }
 
+function paintEnd(){
+    let centerX = gameState.center.x
+    let centerY = gameState.center.y
+    let pS = gameState.player.size
+    gameState.cnvCtx.beginPath()
+    gameState.fillStyle = '#000'
+    gameState.cnvCtx.arc(centerX-pS-5, centerY, pS, 0, 2*Math.PI)
+    gameState.cnvCtx.fill()
+    gameState.cnvCtx.closePath()
+
+    gameState.cnvCtx.beginPath()
+    gameState.fillStyle = '#000'
+    gameState.cnvCtx.arc(centerX+pS+5, centerY, pS, 0, 2*Math.PI)
+    gameState.cnvCtx.fill()
+    gameState.cnvCtx.closePath()
+
+}
