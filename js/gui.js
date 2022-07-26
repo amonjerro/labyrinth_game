@@ -13,6 +13,10 @@ function Border(x, y, width, height){
         gameState.cnvCtx.fill()
     }
 
+    this.hide = () => {
+        gameState.cnvCtx.clearRect(this.x, this.y, this.maxWidth, this.maxHeight)
+    }
+
     this.disappearLeft = () => {
 
     }

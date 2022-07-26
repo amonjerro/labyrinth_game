@@ -104,15 +104,23 @@ function showStartingWalls(){
 
     if (map[pY-1][pX] == 0){
         gameState.borders['t'].show()
+    } else {
+        gameState.borders['t'].hide()
     }
     if (map[pY+1][pX] == 0){
         gameState.borders['b'].show()
+    } else {
+        gameState.borders['b'].hide()
     }
     if (map[pY][pX-1] == 0){
         gameState.borders['l'].show()
+    } else {
+        gameState.borders['l'].hide()
     }
     if (map[pY][pX+1] == 0){
         gameState.borders['r'].show()
+    } else {
+        gameState.borders['r'].hide()
     }
 }
 
