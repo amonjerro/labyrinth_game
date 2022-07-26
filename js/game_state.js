@@ -105,22 +105,38 @@ function showStartingWalls(){
     if (map[pY-1][pX] == 0){
         gameState.borders['t'].show()
     } else {
-        gameState.borders['t'].hide()
+        gameState.borders['t'].hide('t')
     }
+
     if (map[pY+1][pX] == 0){
         gameState.borders['b'].show()
     } else {
-        gameState.borders['b'].hide()
+        gameState.borders['b'].hide('b')
     }
+
     if (map[pY][pX-1] == 0){
         gameState.borders['l'].show()
     } else {
-        gameState.borders['l'].hide()
+        gameState.borders['l'].hide('l')
     }
+
     if (map[pY][pX+1] == 0){
         gameState.borders['r'].show()
     } else {
-        gameState.borders['r'].hide()
+        gameState.borders['r'].hide('r')
+    }
+}
+
+function getBorders(){
+    let pX = gameState.player.pos_x
+    let pY = gameState.player.pos_y
+
+    let map = gameState.currentLayout
+    return {
+        't':map[pY-1][pX],
+        'b':map[pY+1][pX],
+        'l':map[pY][pX-1],
+        'r':map[pY][pX+1],
     }
 }
 
@@ -147,4 +163,9 @@ function initialize(){
     changeLevel(0)
     paintPlayer()
     showStartingWalls()
+    requestAnimationFrame(draw)
+}
+
+function draw(){
+
 }

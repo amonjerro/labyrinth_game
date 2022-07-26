@@ -8,13 +8,16 @@ function Border(x, y, width, height){
     this.apparentHeight = 0
 
     this.show = () =>{
+        gameState.cnvCtx.beginPath()
         gameState.cnvCtx.fillStyle = '#000'
         gameState.cnvCtx.rect(this.x, this.y, this.maxWidth, this.maxHeight)
         gameState.cnvCtx.fill()
+        gameState.cnvCtx.closePath()
     }
 
-    this.hide = () => {
+    this.hide = (i) => {
         gameState.cnvCtx.clearRect(this.x, this.y, this.maxWidth, this.maxHeight)
+        gameState.cnvCtx.fill()
     }
 
     this.disappearLeft = () => {
