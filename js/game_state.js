@@ -1,6 +1,7 @@
 gameState = {
     theCanvas:null,
     cnvCtx:null,
+    isPlaying:true,
     center:{
         x:null,
         y:null,
@@ -84,6 +85,14 @@ maps = [
 ]
 
 function changeLevel(level){
+    
+    //Check to see if we are the end of the game
+    if (level >= maps.length){
+        paintEnd()
+        gameState.isPlaying = false
+        return false
+    }
+
     gameState.currentLevel = level
     //Pick information
     let available_maps = maps[gameState.currentLevel]
@@ -94,6 +103,18 @@ function changeLevel(level){
     gameState.player.pos_y = available_maps[mapPickIndex].start_spots[positionsIndex].y
     gameState.endLocation.pos_x = available_maps[mapPickIndex].exit_spots[positionsIndex].x
     gameState.endLocation.pos_y = available_maps[mapPickIndex].exit_spots[positionsIndex].y
+}
+
+function evaluateLevelEnd(){
+    let pX = gameState.player.pos_x
+    let pY = gameState.player.pos_y
+    
+    let end_x = gameState.endLocation.pos_x
+    let end_y = gameState.endLocation.pos_y
+
+    if (pX == end_x && pY == end_y){
+        changeLevel(gameState.currentLevel+1)
+    }
 }
 
 function showStartingWalls(){

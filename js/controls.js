@@ -2,52 +2,79 @@ function moveUp(){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if (map[pY-1][pX] == 0){
-        // Prevent Movement
+    if (!gameState.isPlaying){
+        // Ignore command
+
+    }
+    else if(map[pY-1][pX] == 0){
+        // Animate movement blocked
+
     } else {
         //Update position
         gameState.player.pos_y -= 1
+        
+        evaluateLevelEnd()
+
         //Animate Walls
         showStartingWalls()
+        
     }
 }
 function moveDown(){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if (map[pY+1][pX] == 0){
-        // Prevent Movement
+    if(!gameState.isPlaying){
+        // Ignore command
+    } else if (map[pY+1][pX] == 0){
+        // Animate movement blocked
     } else {
         //Update position
         gameState.player.pos_y += 1
+        
+        evaluateLevelEnd()
+
         //Animate Walls
         showStartingWalls()
+        
     }
 }
 function moveLeft(){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if (map[pY][pX-1] == 0){
-        // Prevent Movement
+    if(!gameState.isPlaying){
+        // Ignore Command
+    } else if (map[pY][pX-1] == 0){
+        // Animate movement blocked
     } else {
         //Update position
         gameState.player.pos_x -= 1
+        
+        evaluateLevelEnd()
+
         //Animate Walls
         showStartingWalls()
+        
     }
 }
 function moveRight(){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if (map[pY][pX+1] == 0){
-        // Prevent Movement
+    if(!gameState.isPlaying){
+        // Ignore Command
+    } else if (map[pY][pX+1] == 0){
+        // Animate movement blocked
     } else {
         //Update position
         gameState.player.pos_x += 1
+        
+        evaluateLevelEnd()
+
         //Animate Walls
         showStartingWalls()
+        
     }
 }
 

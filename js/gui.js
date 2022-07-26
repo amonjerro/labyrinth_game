@@ -17,7 +17,6 @@ function Border(x, y, width, height){
 
     this.hide = (i) => {
         gameState.cnvCtx.clearRect(this.x, this.y, this.maxWidth, this.maxHeight)
-        gameState.cnvCtx.fill()
     }
 
     this.disappearLeft = () => {
@@ -65,7 +64,12 @@ function paintPlayer(){
 function paintEnd(){
     let centerX = gameState.center.x
     let centerY = gameState.center.y
+    let canvasW = gameState.theCanvas.width
+    let canvasH = gameState.theCanvas.height
     let pS = gameState.player.size
+
+    gameState.cnvCtx.clearRect(21,21, canvasW-42, canvasH-42)
+
     gameState.cnvCtx.beginPath()
     gameState.fillStyle = '#000'
     gameState.cnvCtx.arc(centerX-pS-5, centerY, pS, 0, 2*Math.PI)
