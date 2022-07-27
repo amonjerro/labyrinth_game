@@ -117,15 +117,66 @@ function Player(x, y, size){
     }
 
     this.moveUp = () =>{
+        let frameCountPerLeg = 30
+        this.currentFrame += 1
+        let inputX = this.currentFrame % frameCountPerLeg
+        let movementFactor = sigmoid(inputX/frameCountPerLeg)
 
+        if(this.currentFrame > frameCountPerLeg){
+            movementFactor = 1 - movementFactor
+        }
+
+        if (inputX > 0){
+            this.y = this.midY-(this.size*movementFactor)
+        }
+
+        if (this.currentFrame == this.maxFrames){
+            this.isMoving = false
+            this.currentFrame = 0
+            this.y = this.midY
+        }
     }
 
     this.moveDown = () => {
+        let frameCountPerLeg = 30
+        this.currentFrame += 1
+        let inputX = this.currentFrame % frameCountPerLeg
+        let movementFactor = sigmoid(inputX/frameCountPerLeg)
 
+        if(this.currentFrame > frameCountPerLeg){
+            movementFactor = 1 - movementFactor
+        }
+
+        if (inputX > 0){
+            this.y = this.midY+(this.size*movementFactor)
+        }
+
+        if (this.currentFrame == this.maxFrames){
+            this.isMoving = false
+            this.currentFrame = 0
+            this.y = this.midY
+        }
     }
 
     this.moveRight = () => {
+        let frameCountPerLeg = 30
+        this.currentFrame += 1
+        let inputX = this.currentFrame % frameCountPerLeg
+        let movementFactor = sigmoid(inputX/frameCountPerLeg)
 
+        if(this.currentFrame > frameCountPerLeg){
+            movementFactor = 1 - movementFactor
+        }
+
+        if (inputX > 0){
+            this.x = this.midX+(this.size*movementFactor)
+        }
+
+        if (this.currentFrame == this.maxFrames){
+            this.isMoving = false
+            this.currentFrame = 0
+            this.x = this.midX
+        }
     }
     this.moveFunctions = {
         'l':this.moveLeft,

@@ -8,6 +8,12 @@ function moveUp(){
     }
     else if(map[pY-1][pX] == 0){
         // Animate movement blocked
+        if (gameState.player.isMoving){
+
+        } else {
+            gameState.player.isMoving = true
+            gameState.player.direction = 't'
+        }
 
     } else {
         //Update position
@@ -28,6 +34,12 @@ function moveDown(){
         // Ignore command
     } else if (map[pY+1][pX] == 0){
         // Animate movement blocked
+        if (gameState.player.isMoving){
+
+        } else {
+            gameState.player.isMoving = true
+            gameState.player.direction = 'b'
+        }
     } else {
         //Update position
         gameState.player.pos_y += 1
@@ -64,6 +76,7 @@ function moveLeft(){
         
     }
 }
+
 function moveRight(){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
@@ -72,6 +85,8 @@ function moveRight(){
         // Ignore Command
     } else if (map[pY][pX+1] == 0){
         // Animate movement blocked
+        gameState.player.isMoving = true
+        gameState.player.direction = 'r'
     } else {
         //Update position
         gameState.player.pos_x += 1
