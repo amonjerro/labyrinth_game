@@ -99,8 +99,8 @@ function changeLevel(level){
     let mapPickIndex = Math.floor(Math.random()*available_maps.length)
     gameState.currentLayout = available_maps[mapPickIndex].layout
     let positionsIndex = Math.floor(Math.random()*available_maps[mapPickIndex].start_spots.length)
-    gameState.player.pos_x = available_maps[mapPickIndex].start_spots[positionsIndex].x
-    gameState.player.pos_y = available_maps[mapPickIndex].start_spots[positionsIndex].y
+    gameState.player.setPosX(available_maps[mapPickIndex].start_spots[positionsIndex].x)
+    gameState.player.setPosY(available_maps[mapPickIndex].start_spots[positionsIndex].y)
     gameState.endLocation.pos_x = available_maps[mapPickIndex].exit_spots[positionsIndex].x
     gameState.endLocation.pos_y = available_maps[mapPickIndex].exit_spots[positionsIndex].y
 }
@@ -168,6 +168,7 @@ function initialize(){
     gameState.center.x = gameState.theCanvas.width/2
     gameState.center.y = gameState.theCanvas.height/2
 
+    gameState.player = new Player(gameState.center.x, gameState.center.y, gameState.player.size)
 
     //Create Bottom Border
     gameState.borders['b'] = new Border(0, gameState.theCanvas.height-20, gameState.theCanvas.width, 20)
@@ -182,11 +183,17 @@ function initialize(){
     gameState.borders['r'] = new Border(gameState.theCanvas.width-20, 21, 20, gameState.theCanvas.height-42)
 
     changeLevel(0)
-    paintPlayer()
     showStartingWalls()
+    gameState.player.show()
     requestAnimationFrame(draw)
 }
 
 function draw(){
+    if (gameState.player.isMoving){
+        gameState.player.moveFunctions[gameState.player.direction]()
+    }
 
+
+    gameState.player.show()
+    requestAnimationFrame(draw)
 }

@@ -47,6 +47,12 @@ function moveLeft(){
         // Ignore Command
     } else if (map[pY][pX-1] == 0){
         // Animate movement blocked
+        if (gameState.player.isMoving){
+
+        } else {
+            gameState.player.isMoving = true
+            gameState.player.direction = 'l'
+        }
     } else {
         //Update position
         gameState.player.pos_x -= 1
