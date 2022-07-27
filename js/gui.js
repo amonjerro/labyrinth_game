@@ -66,12 +66,12 @@ function Player(x, y, size){
     this.isMoving = false
     this.direction = ''
     this.currentFrame = 0
-    this.maxFrames = 60
+    this.maxFrames = 59
 
-    this.endLeft = this.x - this.size
-    this.endRight = this.x + this.size
-    this.endUp = this.y - this.size
-    this.endDown = this.y + this.size
+    this.endLeft = this.midX - this.size
+    this.endRight = this.midX + this.size
+    this.endUp = this.midY - this.size
+    this.endDown = this.midY + this.size
 
     this.show = () => {
         let canvasW = gameState.theCanvas.width
@@ -94,19 +94,24 @@ function Player(x, y, size){
     }
 
     this.moveLeft = () =>{
-        console.log('MOVING!')
+
         let frameCountPerLeg = 30
         this.currentFrame += 1
         let inputX = this.currentFrame % frameCountPerLeg
         let movementFactor = sigmoid(inputX/frameCountPerLeg)
-        if (this.currentFrame >= frameCountPerLeg){
-            movementFactor *= -1
+
+        if(this.currentFrame > frameCountPerLeg){
+            movementFactor = 1 - movementFactor
         }
-        this.x -= this.size*movementFactor
+
+        if (inputX > 0){
+            this.x = this.midX-(this.size*movementFactor)
+        }
 
         if (this.currentFrame == this.maxFrames){
             this.isMoving = false
             this.currentFrame = 0
+            this.x = this.midX
         }
         
     }
