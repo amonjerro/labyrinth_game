@@ -1,96 +1,85 @@
 function moveUp(){
+    if (!gameState.isPlaying){
+        return false
+    }
+    let dir = 't'
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if (!gameState.isPlaying){
-        // Ignore command
-
-    }
-    else if(map[pY-1][pX] == 0){
+    if(map[pY-1][pX] == 0){
         // Animate movement blocked
-        if (gameState.player.isMoving){
-
-        } else {
-            gameState.player.isMoving = true
-            gameState.player.direction = 't'
-        }
+        movePlayer(dir)
 
     } else {
         //Update position
         gameState.player.pos_y -= 1
-        
-        evaluateLevelEnd()
+        movePlayer(dir)
 
+        evaluateLevelEnd()
         //Animate Walls
-        showStartingWalls()
+        shouldAnimateWalls()
         
     }
 }
 function moveDown(){
+    if (!gameState.isPlaying){
+        return false
+    }
+    let dir = 'b'
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if(!gameState.isPlaying){
-        // Ignore command
-    } else if (map[pY+1][pX] == 0){
-        // Animate movement blocked
-        if (gameState.player.isMoving){
-
-        } else {
-            gameState.player.isMoving = true
-            gameState.player.direction = 'b'
-        }
+    if (map[pY+1][pX] == 0){
+        movePlayer(dir)
     } else {
         //Update position
         gameState.player.pos_y += 1
+        movePlayer(dir)
         
         evaluateLevelEnd()
 
         //Animate Walls
-        showStartingWalls()
+        shouldAnimateWalls()
         
     }
 }
 function moveLeft(){
+    if (!gameState.isPlaying){
+        return false
+    }
+    let dir = 'l'
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if(!gameState.isPlaying){
-        // Ignore Command
-    } else if (map[pY][pX-1] == 0){
+    if (map[pY][pX-1] == 0){
         // Animate movement blocked
-        if (gameState.player.isMoving){
-
-        } else {
-            gameState.player.isMoving = true
-            gameState.player.direction = 'l'
-        }
+        movePlayer(dir)
     } else {
         //Update position
         gameState.player.pos_x -= 1
-        
+        movePlayer(dir)
         evaluateLevelEnd()
 
         //Animate Walls
-        showStartingWalls()
+        shouldAnimateWalls()
         
     }
 }
 
 function moveRight(){
+    if (!gameState.isPlaying){
+        return false
+    }
+    let dir = 'r'
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
     let map = gameState.currentLayout
-    if(!gameState.isPlaying){
-        // Ignore Command
-    } else if (map[pY][pX+1] == 0){
-        // Animate movement blocked
-        gameState.player.isMoving = true
-        gameState.player.direction = 'r'
+    if (map[pY][pX+1] == 0){
+        movePlayer(dir)
     } else {
         //Update position
         gameState.player.pos_x += 1
-        
+        movePlayer(dir)
         evaluateLevelEnd()
 
         //Animate Walls
