@@ -43,6 +43,7 @@ function Border(x, y, width, height){
 
     this.evaluateAnimationEnd = () => {
         if(this.currentFrame == this.maxFrames){
+            console.log('Animation End')
             this.isMoving = false
             this.currentFrame = 0
         }
@@ -51,7 +52,6 @@ function Border(x, y, width, height){
     this.left = (factor) => {
         this.apparentWidth = this.maxWidth * factor
     }
-    
 
     this.up = (factor) => {
         this.apparentHeight = this.maxHeight * factor

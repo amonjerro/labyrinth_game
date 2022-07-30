@@ -149,9 +149,9 @@ function showStartingWalls(){
     }
 }
 
-function updateBorderMotion(dir){
+function updateBorderMotion(dir, hide){
+    gameState.borders[dir].isHidden = hide
     gameState.borders[dir].isMoving = true
-    gameState.borders[dir].isHidden = false
 }
 
 function shouldAnimateWalls(){
@@ -161,30 +161,30 @@ function shouldAnimateWalls(){
     let map = gameState.currentLayout
     let dir = 't'
     if (map[pY-1][pX] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir)
+        updateBorderMotion(dir, false)
     } else if ( !gameState.borders[dir].isHidden && map[pY-1][pX] == 1) {
-        gameState.borders[dir].hide(dir)
+        updateBorderMotion(dir, true)
     }
 
     dir = 'b'
     if (map[pY+1][pX] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir)
+        updateBorderMotion(dir, false)
     } else if (!gameState.borders[dir].isHidden && map[pY+1][pX] == 1) {
-        gameState.borders[dir].hide(dir)
+        updateBorderMotion(dir, true)
     }
 
     dir = 'l'
     if (map[pY][pX-1] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir)
+        updateBorderMotion(dir, false)
     } else if(map[pY][pX-1] == 1 && !gameState.borders[dir].isHidden) {
-        gameState.borders[dir].hide(dir)
+        updateBorderMotion(dir, true)
     }
 
     dir = 'r'
     if (map[pY][pX+1] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir)
+        updateBorderMotion(dir, false)
     } else if(map[pY][pX+1] == 1 && !gameState.borders[dir].isHidden) {
-        gameState.borders[dir].hide(dir)
+        updateBorderMotion(dir, true)
     }
 }
 
@@ -233,7 +233,10 @@ function draw(){
         gameState.player.moveFunctions[gameState.player.direction]()
     }
 
-    DIR_KEYS.forEach((key)=> gameState.borders[key].move())
+    DIR_KEYS.forEach((key)=>{
+        gameState.borders[key].move()
+        gameState.borders[key].draw()
+    })
 
 
     gameState.player.show()
