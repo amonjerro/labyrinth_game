@@ -2,6 +2,10 @@ function Border(x, y, width, height){
 
     this.x = x;
     this.y = y;
+
+    this.starting_x = this.x;
+    this.starting_y = this.y;
+    
     this.maxHeight = height;
     this.maxWidth = width;
 
@@ -9,6 +13,7 @@ function Border(x, y, width, height){
     this.apparentHeight = 0
     this.isMoving = false
     this.isHidden = false
+    this.movementFunc = null
 
     this.currentFrame = 0
     this.maxFrames = 59
@@ -31,7 +36,7 @@ function Border(x, y, width, height){
     }
 
     this.clear = () => {
-        gameState.cnvCtx.clearRect(this.x, this.y, this.maxWidth, this.maxHeight)
+        gameState.cnvCtx.clearRect(this.starting_x, this.starting_y, this.maxWidth, this.maxHeight)
     }
 
     this.hide = () => {
@@ -43,33 +48,78 @@ function Border(x, y, width, height){
 
     this.evaluateAnimationEnd = () => {
         if(this.currentFrame == this.maxFrames){
-            console.log('Animation End')
             this.isMoving = false
             this.currentFrame = 0
+            this.movementFunc = null
+
+            this.x = this.starting_x
+            this.y = this.starting_y
         }
     }
 
     this.left = (factor) => {
         this.apparentWidth = this.maxWidth * factor
+        
+        if(this.currentFrame == this.maxFrames){
+            if (this.isHidden){
+                this.apparentWidth = 0
+            } else {
+                this.apparentWidth = this.maxWidth
+            }
+        }
     }
 
     this.up = (factor) => {
         this.apparentHeight = this.maxHeight * factor
+        this.y = this.starting_y+(this.maxHeight-this.apparentHeight)
+
+
+        if(this.currentFrame == this.maxFrames){
+            if (this.isHidden){
+                this.apparentHeight = 0
+            } else {
+                this.apparentHeight = this.maxHeight
+            }
+        }
     }
 
     this.down = (factor) => {
         this.apparentHeight = this.maxHeight * factor
+
+        if(this.currentFrame == this.maxFrames){
+            if (this.isHidden){
+                this.apparentHeight = 0
+            } else {
+                this.apparentHeight = this.maxHeight
+            }
+        }
     }
     
     this.right = (factor) => {
         this.apparentWidth = this.maxWidth * factor
+
+        if(this.currentFrame == this.maxFrames){
+            if (this.isHidden){
+                this.apparentWidth = 0
+            } else {
+                this.apparentWidth = this.maxWidth
+            }
+        }
     }
 
-    this.moveDirections = {
-        'l':this.left,
-        'r':this.right,
-        't':this.up,
-        'b':this.down
+    this.movementCombinations = {
+        'hidden':{
+            'l':null,
+            'r':null,
+            'b':null,
+            't':null    
+        },
+        'showing':{
+            'l':null,
+            'r':null,
+            'b':null,
+            't':null
+        }
     }
 
     this.move = () => {
@@ -79,12 +129,11 @@ function Border(x, y, width, height){
         
         this.currentFrame += 1
         let movementFactor = sigmoid(this.currentFrame / this.maxFrames)
-        if(this.isHidden){
-            this.moveDirections[gameState.player.direction](movementFactor)
-        }else {
-            movementFactor = 1 - movementFactor
-            this.moveDirections[gameState.player.direction](movementFactor)
+        if (this.isHidden){
+            movementFactor = 1-movementFactor
         }
+        this.movementFunc(movementFactor)
+
         this.evaluateAnimationEnd()
     }
 }

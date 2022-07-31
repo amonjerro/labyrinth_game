@@ -27,6 +27,12 @@ gameState = {
 }
 
 const DIR_KEYS = ['l','r','t','b']
+const INVERSE_DIRS = {
+    'l':'r',
+    'r':'l',
+    't':'b',
+    'b':'t'
+}
 
 maps = [
     //Level_0
@@ -81,6 +87,23 @@ maps = [
             ],
             start_spots:[{x:3, y:3}, {x:2, y:2}, {x:6, y:4}],
             exit_spots:[{x:1, y:3}, {x:6, y:4}, {x:1,y:1}]
+        }
+    ],
+    [
+        {
+            layout:[
+                [0,0,0,0,0,0,0,0,0,0,0],
+                [0,1,0,0,1,1,1,0,1,1,0],
+                [0,1,1,1,1,0,1,0,1,0,0],
+                [0,0,1,0,0,0,1,1,1,0,0],
+                [0,0,1,0,1,1,1,0,1,1,0],
+                [0,1,1,1,0,0,0,1,0,0,0],
+                [0,1,0,0,1,1,1,1,1,0,0],
+                [0,1,1,1,1,0,1,0,1,1,0],
+                [0,0,0,0,0,0,0,0,0,0,0]
+            ],
+            start_spots:[{x:1,y:1},{x:9,y:1},{x:9,y:7},{x:3,y:5}],
+            exit_spots:[{x:4,y:9},{x:7,y:5},{x:5, y:4},{x:9,y:4}]
         }
     ]
 ]
@@ -149,42 +172,51 @@ function showStartingWalls(){
     }
 }
 
-function updateBorderMotion(dir, hide){
+function updateBorderMotion(dir, hide, movement_dir){
+    console.log(dir, movement_dir)
     gameState.borders[dir].isHidden = hide
     gameState.borders[dir].isMoving = true
+
+    if (gameState.borders[dir].isHidden ){
+        gameState.borders[dir].movementFunc = gameState.borders[dir].movementCombinations.hidden[movement_dir]
+    } else {
+        gameState.borders[dir].movementFunc = gameState.borders[dir].movementCombinations.showing[movement_dir]
+    }
+     
 }
 
-function shouldAnimateWalls(){
+function shouldAnimateWalls(movement_dir){
     let pX = gameState.player.pos_x
     let pY = gameState.player.pos_y
 
     let map = gameState.currentLayout
+
     let dir = 't'
     if (map[pY-1][pX] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir, false)
+        updateBorderMotion(dir, false, movement_dir)
     } else if ( !gameState.borders[dir].isHidden && map[pY-1][pX] == 1) {
-        updateBorderMotion(dir, true)
+        updateBorderMotion(dir, true, movement_dir)
     }
 
     dir = 'b'
     if (map[pY+1][pX] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir, false)
+        updateBorderMotion(dir, false, movement_dir)
     } else if (!gameState.borders[dir].isHidden && map[pY+1][pX] == 1) {
-        updateBorderMotion(dir, true)
+        updateBorderMotion(dir, true, movement_dir)
     }
 
     dir = 'l'
     if (map[pY][pX-1] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir, false)
+        updateBorderMotion(dir, false, movement_dir)
     } else if(map[pY][pX-1] == 1 && !gameState.borders[dir].isHidden) {
-        updateBorderMotion(dir, true)
+        updateBorderMotion(dir, true, movement_dir)
     }
 
     dir = 'r'
     if (map[pY][pX+1] == 0 && gameState.borders[dir].isHidden){
-        updateBorderMotion(dir, false)
+        updateBorderMotion(dir, false, movement_dir)
     } else if(map[pY][pX+1] == 1 && !gameState.borders[dir].isHidden) {
-        updateBorderMotion(dir, true)
+        updateBorderMotion(dir, true, movement_dir)
     }
 }
 
@@ -221,6 +253,8 @@ function initialize(){
 
     //Create Right Border
     gameState.borders['r'] = new Border(gameState.theCanvas.width-20, 21, 20, gameState.theCanvas.height-42)
+
+    setUpMovementCombinations()
 
     changeLevel(0)
     showStartingWalls()

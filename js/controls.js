@@ -17,7 +17,7 @@ function moveUp(){
 
         evaluateLevelEnd()
         //Animate Walls
-        shouldAnimateWalls()
+        shouldAnimateWalls(dir)
         
     }
 }
@@ -39,7 +39,7 @@ function moveDown(){
         evaluateLevelEnd()
 
         //Animate Walls
-        shouldAnimateWalls()
+        shouldAnimateWalls(dir)
         
     }
 }
@@ -61,7 +61,7 @@ function moveLeft(){
         evaluateLevelEnd()
 
         //Animate Walls
-        shouldAnimateWalls()
+        shouldAnimateWalls(dir)
         
     }
 }
@@ -83,11 +83,51 @@ function moveRight(){
         evaluateLevelEnd()
 
         //Animate Walls
-        showStartingWalls()
+        showStartingWalls(dir)
         
     }
 }
 
+
+function setUpMovementCombinations(){
+    gameState.borders['l'].movementCombinations.hidden.t = gameState.borders['l'].up
+    gameState.borders['l'].movementCombinations.showing.t = gameState.borders['l'].down
+    gameState.borders['l'].movementCombinations.hidden.r = gameState.borders['l'].left
+    gameState.borders['l'].movementCombinations.showing.r = gameState.borders['l'].right
+    gameState.borders['l'].movementCombinations.hidden.b = gameState.borders['l'].down
+    gameState.borders['l'].movementCombinations.showing.b = gameState.borders['l'].up
+    gameState.borders['l'].movementCombinations.hidden.l = gameState.borders['l'].right
+    gameState.borders['l'].movementCombinations.showing.l = gameState.borders['l'].left
+
+    gameState.borders['r'].movementCombinations.hidden.t = gameState.borders['r'].up
+    gameState.borders['r'].movementCombinations.showing.t = gameState.borders['r'].down
+    gameState.borders['r'].movementCombinations.hidden.r = gameState.borders['r'].right
+    gameState.borders['r'].movementCombinations.showing.r = gameState.borders['r'].left
+    gameState.borders['r'].movementCombinations.hidden.b = gameState.borders['r'].down
+    gameState.borders['r'].movementCombinations.showing.b = gameState.borders['r'].up
+    gameState.borders['r'].movementCombinations.hidden.l = gameState.borders['r'].left
+    gameState.borders['r'].movementCombinations.showing.l = gameState.borders['r'].right
+
+    gameState.borders['t'].movementCombinations.hidden.t = gameState.borders['t'].up
+    gameState.borders['t'].movementCombinations.showing.t = gameState.borders['t'].down
+    gameState.borders['t'].movementCombinations.hidden.r = gameState.borders['t'].right
+    gameState.borders['t'].movementCombinations.showing.r = gameState.borders['t'].left
+    gameState.borders['t'].movementCombinations.hidden.b = gameState.borders['t'].down
+    gameState.borders['t'].movementCombinations.showing.b = gameState.borders['t'].down
+    gameState.borders['t'].movementCombinations.hidden.l = gameState.borders['t'].left
+    gameState.borders['t'].movementCombinations.showing.l = gameState.borders['t'].right
+
+    gameState.borders['b'].movementCombinations.hidden.t = gameState.borders['b'].down
+    gameState.borders['b'].movementCombinations.showing.t = gameState.borders['b'].up
+    gameState.borders['b'].movementCombinations.hidden.r = gameState.borders['b'].right
+    gameState.borders['b'].movementCombinations.showing.r = gameState.borders['b'].left
+    gameState.borders['b'].movementCombinations.hidden.b = gameState.borders['b'].up
+    gameState.borders['b'].movementCombinations.showing.b = gameState.borders['b'].down
+    gameState.borders['b'].movementCombinations.hidden.l = gameState.borders['b'].left
+    gameState.borders['b'].movementCombinations.showing.l = gameState.borders['b'].right
+
+
+}
 
 document.onkeydown = function (event){
     switch(event.key){
