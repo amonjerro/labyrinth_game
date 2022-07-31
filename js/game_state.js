@@ -150,24 +150,28 @@ function showStartingWalls(){
     if (map[pY-1][pX] == 0){
         gameState.borders['t'].show()
     } else {
+        gameState.borders['t'].squishHeight()
         gameState.borders['t'].hide('t')
     }
 
     if (map[pY+1][pX] == 0){
         gameState.borders['b'].show()
     } else {
+        gameState.borders['b'].squishHeight()
         gameState.borders['b'].hide('b')
     }
 
     if (map[pY][pX-1] == 0){
         gameState.borders['l'].show()
     } else {
+        gameState.borders['l'].squishWidth()
         gameState.borders['l'].hide('l')
     }
 
     if (map[pY][pX+1] == 0){
         gameState.borders['r'].show()
     } else {
+        gameState.borders['r'].squishWidth()
         gameState.borders['r'].hide('r')
     }
 }

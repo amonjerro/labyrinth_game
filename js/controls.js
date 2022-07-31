@@ -83,7 +83,7 @@ function moveRight(){
         evaluateLevelEnd()
 
         //Animate Walls
-        showStartingWalls(dir)
+        shouldAnimateWalls(dir)
         
     }
 }
@@ -122,7 +122,7 @@ function setUpMovementCombinations(){
     gameState.borders['b'].movementCombinations.hidden.r = gameState.borders['b'].right
     gameState.borders['b'].movementCombinations.showing.r = gameState.borders['b'].left
     gameState.borders['b'].movementCombinations.hidden.b = gameState.borders['b'].up
-    gameState.borders['b'].movementCombinations.showing.b = gameState.borders['b'].down
+    gameState.borders['b'].movementCombinations.showing.b = gameState.borders['b'].up
     gameState.borders['b'].movementCombinations.hidden.l = gameState.borders['b'].left
     gameState.borders['b'].movementCombinations.showing.l = gameState.borders['b'].right
 

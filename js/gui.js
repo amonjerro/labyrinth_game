@@ -9,8 +9,8 @@ function Border(x, y, width, height){
     this.maxHeight = height;
     this.maxWidth = width;
 
-    this.apparentWidth = 0
-    this.apparentHeight = 0
+    this.apparentWidth = this.maxWidth
+    this.apparentHeight = this.maxHeight
     this.isMoving = false
     this.isHidden = false
     this.movementFunc = null
@@ -39,9 +39,14 @@ function Border(x, y, width, height){
         gameState.cnvCtx.clearRect(this.starting_x, this.starting_y, this.maxWidth, this.maxHeight)
     }
 
-    this.hide = () => {
+    this.squishHeight = () => {
         this.apparentHeight = 0
+    }
+    this.squishWidth = () => {
         this.apparentWidth = 0
+    }
+
+    this.hide = () => {
         this.isHidden = true
         this.draw()
     }
@@ -65,20 +70,22 @@ function Border(x, y, width, height){
                 this.apparentWidth = 0
             } else {
                 this.apparentWidth = this.maxWidth
+                this.apparentWidth = this.maxHeight
             }
         }
     }
 
     this.up = (factor) => {
+        
         this.apparentHeight = this.maxHeight * factor
         this.y = this.starting_y+(this.maxHeight-this.apparentHeight)
-
 
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentHeight = 0
             } else {
                 this.apparentHeight = this.maxHeight
+                this.apparentWidth = this.maxWidth
             }
         }
     }
@@ -91,17 +98,20 @@ function Border(x, y, width, height){
                 this.apparentHeight = 0
             } else {
                 this.apparentHeight = this.maxHeight
+                this.apparentWidth = this.maxWidth
             }
         }
     }
     
     this.right = (factor) => {
         this.apparentWidth = this.maxWidth * factor
-
+        this.x = this.starting_x+(this.maxWidth-this.apparentWidth)
+        console.log(this.x, this.apparentWidth)
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentWidth = 0
             } else {
+                this.apparentHeight = this.maxHeight
                 this.apparentWidth = this.maxWidth
             }
         }
