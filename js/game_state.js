@@ -16,6 +16,8 @@ gameState = {
         pos_y:null
     },
     currentLayout:null,
+    backgroundGradientLayout:null,
+    maxBackground:0,
     currentLevel:0,
     borders:{
         'l':null,
@@ -122,11 +124,71 @@ function changeLevel(level){
     let available_maps = maps[gameState.currentLevel]
     let mapPickIndex = Math.floor(Math.random()*available_maps.length)
     gameState.currentLayout = available_maps[mapPickIndex].layout
+    gameState.backgroundGradientLayout = []
+    for (let i = 0; i < gameState.currentLayout.length; i++){
+        gameState.backgroundGradientLayout.push(gameState.currentLayout[i].slice())
+    }
+
+
     let positionsIndex = Math.floor(Math.random()*available_maps[mapPickIndex].start_spots.length)
     gameState.player.setPosX(available_maps[mapPickIndex].start_spots[positionsIndex].x)
     gameState.player.setPosY(available_maps[mapPickIndex].start_spots[positionsIndex].y)
     gameState.endLocation.pos_x = available_maps[mapPickIndex].exit_spots[positionsIndex].x
     gameState.endLocation.pos_y = available_maps[mapPickIndex].exit_spots[positionsIndex].y
+
+    calculateBackgroundLayer(gameState.endLocation.pos_x, gameState.endLocation.pos_y)
+
+}
+
+function checkDir(x, y){
+    return gameState.currentLayout[y][x] == 1
+}
+
+function calculateBackgroundLayer(x, y){
+    //FIFO queue flood fill
+    let horizon = []
+    let visited = {}
+
+    if(checkDir(x, y+1)){
+        horizon.push({x:x, y:y+1, value:1})
+    }
+    if(checkDir(x, y-1)){
+        horizon.push({x:x, y:y-1, value:1})
+
+    }
+    if(checkDir(x-1, y)){
+        horizon.push({x:x-1, y:y, value:1})
+
+    }
+    if(checkDir(x+1, y)){
+        horizon.push({x:x+1, y:y, value:1})
+
+    }    
+    
+    visited[`x${x}y${y}`] = true
+
+    while(horizon.length > 0){
+        let popped = horizon.shift()
+        gameState.backgroundGradientLayout[popped.y][popped.x] = popped.value
+        if(checkDir(popped.x, popped.y+1) && !visited[`x${popped.x}y${popped.y+1}`]){
+            horizon.push({x:popped.x, y:popped.y+1, value:popped.value+1})
+        }
+        if(checkDir(popped.x, popped.y-1)  && !visited[`x${popped.x}y${popped.y-1}`]){
+            horizon.push({x:popped.x, y:popped.y-1, value:popped.value+1})
+    
+        }
+        if(checkDir(popped.x-1, popped.y)  && !visited[`x${popped.x-1}y${popped.y}`]){
+            horizon.push({x:popped.x-1, y:popped.y, value:popped.value+1})
+    
+        }
+        if(checkDir(popped.x+1, popped.y)  && !visited[`x${popped.x+1}y${popped.y}`]){
+            horizon.push({x:popped.x+1, y:popped.y, value:popped.value+1})
+    
+        }
+        visited[`x${popped.x}y${popped.y}`] = true
+
+    }
+
 }
 
 function evaluateLevelEnd(){
