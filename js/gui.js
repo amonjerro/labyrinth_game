@@ -78,8 +78,9 @@ function Border(x, y, width, height){
 
     this.up = (factor) => {
         this.apparentWidth = this.maxWidth
+
         this.apparentHeight = clampTo(this.maxHeight * factor, 0, this.maxHeight)
-        this.y = clampTo(this.starting_y+(this.maxHeight-this.apparentHeight), 0, this.maxHeight) 
+        this.y = clampTo(this.starting_y+(this.maxHeight-this.apparentHeight), 0, null) 
 
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
@@ -92,8 +93,8 @@ function Border(x, y, width, height){
 
     this.down = (factor) => {
         this.apparentWidth = this.maxWidth
-        this.apparentHeight = clampTo(this.maxHeight * factor, 0, this.maxHeight)
 
+        this.apparentHeight = clampTo(this.maxHeight * factor, 0, this.maxHeight)
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentHeight = 0
@@ -105,8 +106,9 @@ function Border(x, y, width, height){
     
     this.right = (factor) => {
         this.apparentHeight = this.maxHeight
+
         this.apparentWidth = clampTo(this.maxWidth * factor, 0, this.maxWidth)
-        this.x = clampTo(this.starting_x+(this.maxWidth-this.apparentWidth), 0, this.maxWidth)
+        this.x = clampTo(this.starting_x+(this.maxWidth-this.apparentWidth), 0, null)
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentWidth = 0

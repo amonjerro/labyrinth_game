@@ -8,7 +8,7 @@ function clampTo(value, min, max){
     if (value < min){
         returnable = min
     }
-    if (value > max){
+    if (max && value > max){
         returnable = max
     }
     return returnable

@@ -101,7 +101,7 @@ function setUpMovementCombinations(){
     gameState.borders['r'].movementCombinations.hidden.t = gameState.borders['r'].up
     gameState.borders['r'].movementCombinations.showing.t = gameState.borders['r'].down
     gameState.borders['r'].movementCombinations.hidden.r = gameState.borders['r'].left
-    gameState.borders['r'].movementCombinations.showing.r = gameState.borders['r'].left
+    gameState.borders['r'].movementCombinations.showing.r = gameState.borders['r'].right
     gameState.borders['r'].movementCombinations.hidden.b = gameState.borders['r'].down
     gameState.borders['r'].movementCombinations.showing.b = gameState.borders['r'].up
     gameState.borders['r'].movementCombinations.hidden.l = gameState.borders['r'].right
