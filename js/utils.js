@@ -13,3 +13,11 @@ function clampTo(value, min, max){
     }
     return returnable
 }
+
+function normalize(value, min, max){
+    return (value-min) / (max-min)
+}
+
+function denormalize(value, min, max){
+    return (max-min)*(value)+min
+}

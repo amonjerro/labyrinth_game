@@ -1,3 +1,5 @@
+const HEX_VALUES = ['f','e','d','c','b','a',9,8,7,6,5,4]
+
 function Border(x, y, width, height){
 
     this.x = x;
@@ -36,7 +38,7 @@ function Border(x, y, width, height){
     }
 
     this.clear = () => {
-        gameState.cnvCtx.clearRect(this.starting_x-1, this.starting_y-1, this.maxWidth+1, this.maxHeight+1)
+        paintBackground(this.starting_x-1, this.starting_y-1, this.maxWidth+1, this.maxHeight+1)
     }
 
     this.squishHeight = () => {
@@ -174,9 +176,9 @@ function Player(x, y, size){
         let canvasW = gameState.theCanvas.width
         let canvasH = gameState.theCanvas.height
 
-        gameState.cnvCtx.clearRect(21,21, canvasW-42, canvasH-42)
+        paintBackground(21,21, canvasW-42, canvasH-42)
         gameState.cnvCtx.beginPath()
-        gameState.fillStyle = '#000'
+        gameState.cnvCtx.fillStyle = '#000'
         gameState.cnvCtx.arc(this.x, this.y, this.size, 0, 2*Math.PI)
         gameState.cnvCtx.fill()
         gameState.cnvCtx.closePath()
@@ -304,6 +306,43 @@ function paintEnd(){
     gameState.cnvCtx.fill()
     gameState.cnvCtx.closePath()
 
+}
+
+function getBackgroundValue(bg){
+    let norm = normalize(bg, 0, gameState.maxBackground)
+    let denorm = Math.floor(denormalize(norm, 0, HEX_VALUES.length-1))
+    return '#'+HEX_VALUES[denorm]+HEX_VALUES[denorm]+HEX_VALUES[denorm]
+}
+
+function paintBackground(x,y,w,h){
+
+    let bgX = 0
+    let bgY = 0
+    let bgW = gameState.theCanvas.width
+    let bgH = gameState.theCanvas.height
+    if (x != null){
+        bgX = x
+    }
+    if (y != null){
+        bgY = y
+    }
+
+    if (w != null){
+        bgW = w
+    }
+    if (h != null){
+        bgH = h
+    }
+
+    let currentBackground = getCurrentBackground()
+    let fillstring = getBackgroundValue(currentBackground)
+    
+    gameState.cnvCtx.clearRect(bgX, bgY, bgW, bgH)
+    gameState.cnvCtx.beginPath()
+    gameState.cnvCtx.fillStyle = fillstring
+    gameState.cnvCtx.rect(bgX, bgY, bgW, bgH)
+    gameState.cnvCtx.fill()
+    gameState.cnvCtx.closePath()
 }
 
 

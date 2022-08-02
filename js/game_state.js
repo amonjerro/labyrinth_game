@@ -148,6 +148,7 @@ function calculateBackgroundLayer(x, y){
     //FIFO queue flood fill
     let horizon = []
     let visited = {}
+    gameState.maxBackground = 0
 
     if(checkDir(x, y+1)){
         horizon.push({x:x, y:y+1, value:1})
@@ -170,6 +171,9 @@ function calculateBackgroundLayer(x, y){
     while(horizon.length > 0){
         let popped = horizon.shift()
         gameState.backgroundGradientLayout[popped.y][popped.x] = popped.value
+        if (popped.value > gameState.maxBackground){
+            gameState.maxBackground = popped.value
+        }
         if(checkDir(popped.x, popped.y+1) && !visited[`x${popped.x}y${popped.y+1}`]){
             horizon.push({x:popped.x, y:popped.y+1, value:popped.value+1})
         }
@@ -298,6 +302,13 @@ function getBorders(){
     }
 }
 
+function getCurrentBackground(){
+    let pos_x = gameState.player.pos_x
+    let pos_y = gameState.player.pos_y
+    let currentBackground = gameState.backgroundGradientLayout[pos_y][pos_x]
+    return currentBackground
+}
+
 function initialize(){
     gameState.theCanvas = document.getElementById('the_canvas')
     gameState.cnvCtx = gameState.theCanvas.getContext('2d')
@@ -328,6 +339,8 @@ function initialize(){
 }
 
 function draw(){
+    paintBackground(null, null, null, null)
+
     if (gameState.player.isMoving){
         gameState.player.moveFunctions[gameState.player.direction]()
     }
