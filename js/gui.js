@@ -36,7 +36,7 @@ function Border(x, y, width, height){
     }
 
     this.clear = () => {
-        gameState.cnvCtx.clearRect(this.starting_x, this.starting_y, this.maxWidth, this.maxHeight)
+        gameState.cnvCtx.clearRect(this.starting_x-1, this.starting_y-1, this.maxWidth+1, this.maxHeight+1)
     }
 
     this.squishHeight = () => {
@@ -63,55 +63,54 @@ function Border(x, y, width, height){
     }
 
     this.left = (factor) => {
-        this.apparentWidth = this.maxWidth * factor
+        this.apparentHeight = this.maxHeight
+        this.apparentWidth = clampTo(this.maxWidth * factor, 0, this.maxWidth)
         
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentWidth = 0
             } else {
                 this.apparentWidth = this.maxWidth
-                this.apparentWidth = this.maxHeight
+                this.apparentHeight = this.maxHeight
             }
         }
     }
 
     this.up = (factor) => {
-        
-        this.apparentHeight = this.maxHeight * factor
-        this.y = this.starting_y+(this.maxHeight-this.apparentHeight)
+        this.apparentWidth = this.maxWidth
+        this.apparentHeight = clampTo(this.maxHeight * factor, 0, this.maxHeight)
+        this.y = clampTo(this.starting_y+(this.maxHeight-this.apparentHeight), 0, this.maxHeight) 
 
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentHeight = 0
             } else {
                 this.apparentHeight = this.maxHeight
-                this.apparentWidth = this.maxWidth
             }
         }
     }
 
     this.down = (factor) => {
-        this.apparentHeight = this.maxHeight * factor
+        this.apparentWidth = this.maxWidth
+        this.apparentHeight = clampTo(this.maxHeight * factor, 0, this.maxHeight)
 
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentHeight = 0
             } else {
                 this.apparentHeight = this.maxHeight
-                this.apparentWidth = this.maxWidth
             }
         }
     }
     
     this.right = (factor) => {
-        this.apparentWidth = this.maxWidth * factor
-        this.x = this.starting_x+(this.maxWidth-this.apparentWidth)
-        console.log(this.x, this.apparentWidth)
+        this.apparentHeight = this.maxHeight
+        this.apparentWidth = clampTo(this.maxWidth * factor, 0, this.maxWidth)
+        this.x = clampTo(this.starting_x+(this.maxWidth-this.apparentWidth), 0, this.maxWidth)
         if(this.currentFrame == this.maxFrames){
             if (this.isHidden){
                 this.apparentWidth = 0
             } else {
-                this.apparentHeight = this.maxHeight
                 this.apparentWidth = this.maxWidth
             }
         }

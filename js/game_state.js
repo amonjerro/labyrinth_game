@@ -177,7 +177,6 @@ function showStartingWalls(){
 }
 
 function updateBorderMotion(dir, hide, movement_dir){
-    console.log(dir, movement_dir)
     gameState.borders[dir].isHidden = hide
     gameState.borders[dir].isMoving = true
 
