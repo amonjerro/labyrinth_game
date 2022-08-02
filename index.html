@@ -3,14 +3,41 @@
     <head>
         <title>Labyrinth Game</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0" />
         <script src="js/utils.js"></script>
         <script src="js/game_state.js"></script>
         <script src="js/controls.js"></script>
         <script src="js/gui.js"></script>
     </head>
     <body>
-        <div class="container"> 
-            <canvas id="the_canvas" width="400" height="400"></canvas>
+        <div class="vertical container"> 
+            <div class="gutter">
+                <button onclick="moveUp()" class="button bread">
+                    <span class="material-symbols-outlined">
+                        keyboard_arrow_up
+                    </span>
+                </button>
+            </div>
+            <div class="container">
+                <button onclick="moveLeft()" class="lateral button">
+                    <span class="material-symbols-outlined">
+                        keyboard_arrow_left
+                    </span>
+                </button>
+                <canvas id="the_canvas" width="400" height="400"></canvas>
+                <button onclick="moveRight()" class="lateral button">
+                    <span class="material-symbols-outlined">
+                        keyboard_arrow_right
+                    </span>
+                </button>
+            </div>
+            <div class="gutter">
+                <button onclick="moveDown()" class="button bread">
+                    <span class="material-symbols-outlined">
+                        keyboard_arrow_down
+                    </span>
+                </button>
+            </div>
         </div>
         <script>
             initialize()

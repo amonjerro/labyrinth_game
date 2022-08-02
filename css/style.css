@@ -2,5 +2,37 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    
+}
+.vertical{
+    flex-direction: column;
     height:98vh;
+}
+.gutter,.lateral{
+    margin:5px;   
+}
+.gutter{
+    display:flex;
+    justify-content: center;
+    width:100%;
+}
+
+
+.lateral{
+    height:60%
+}
+@media screen and (max-width:600px) {
+    .bread{
+        width:33%
+    }        
+}
+.bread{
+    width:15%;
+}
+
+
+
+.button{
+    cursor:pointer;
+    border:4px solid #444;
 }
