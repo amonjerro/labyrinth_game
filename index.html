@@ -10,33 +10,45 @@
         <script src="js/gui.js"></script>
     </head>
     <body>
-        <div class="vertical container"> 
-            <div class="gutter">
-                <button onclick="moveUp()" class="button bread">
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_up
-                    </span>
-                </button>
+        <div class="container">
+            <div id="content">
+                <div class="vertical container"> 
+                    <div class="gutter">
+                        <button onclick="moveUp()" class="button bread">
+                            <span class="material-symbols-outlined">
+                                keyboard_arrow_up
+                            </span>
+                        </button>
+                    </div>
+                    <div class="container">
+                        <button onclick="moveLeft()" class="lateral button">
+                            <span class="material-symbols-outlined">
+                                keyboard_arrow_left
+                            </span>
+                        </button>
+                        <canvas id="the_canvas" width="400" height="400"></canvas>
+                        <button onclick="moveRight()" class="lateral button">
+                            <span class="material-symbols-outlined">
+                                keyboard_arrow_right
+                            </span>
+                        </button>
+                    </div>
+                    <div class="gutter">
+                        <button onclick="moveDown()" class="button bread">
+                            <span class="material-symbols-outlined">
+                                keyboard_arrow_down
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="container">
-                <button onclick="moveLeft()" class="lateral button">
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_left
-                    </span>
-                </button>
-                <canvas id="the_canvas" width="400" height="400"></canvas>
-                <button onclick="moveRight()" class="lateral button">
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_right
-                    </span>
-                </button>
-            </div>
-            <div class="gutter">
-                <button onclick="moveDown()" class="button bread">
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_down
-                    </span>
-                </button>
+            <div id="instructions">
+                <button class="collapse-button">Collapse</button>
+                <p>This game is about escaping from a dark labyrinth. </p>
+                <p>As you approach the exit, the darkness will seem to fade. Follow the path back to the light.</p> 
+                <p>There are many levels to this maze. You might find yourself at the threshold only to be plunged deeper into darkness than before. 
+                    Do not lose your determination. Persist in the face of adversity.</p>
+                <p>You can navigate using the arrow keys in your keyboard or the buttons around the gaming area.</p>
             </div>
         </div>
         <script>
