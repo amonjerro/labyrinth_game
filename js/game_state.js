@@ -91,21 +91,23 @@ maps = [
             exit_spots:[{x:1, y:3}, {x:6, y:4}, {x:1,y:1}]
         }
     ],
+    //Level 2
     [
         {
             layout:[
-                [0,0,0,0,0,0,0,0,0,0,0],
-                [0,1,0,0,1,1,1,0,1,1,0],
-                [0,1,1,1,1,0,1,0,1,0,0],
-                [0,0,1,0,0,0,1,1,1,0,0],
-                [0,0,1,0,1,1,1,0,1,1,0],
-                [0,1,1,1,0,0,0,1,0,0,0],
-                [0,1,0,0,1,1,1,1,1,0,0],
-                [0,1,1,1,1,0,1,0,1,1,0],
-                [0,0,0,0,0,0,0,0,0,0,0]
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//0
+                [0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0],//1
+                [0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0],//2
+                [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0],//3
+                [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0],//4
+                [0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0],//5
+                [0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0],//6
+                [0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0],//7
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]//8
+               //0  1  2  3  4  5  6  7  8  9  10
             ],
             start_spots:[{x:1,y:1},{x:9,y:1},{x:9,y:7},{x:3,y:5}],
-            exit_spots:[{x:4,y:9},{x:7,y:5},{x:5, y:4},{x:9,y:4}]
+            exit_spots:[{x:6,y:7},{x:7,y:5},{x:4, y:4},{x:9,y:4}]
         }
     ]
 ]
@@ -120,6 +122,7 @@ function changeLevel(level){
     }
 
     gameState.currentLevel = level
+
     //Pick information
     let available_maps = maps[gameState.currentLevel]
     let mapPickIndex = Math.floor(Math.random()*available_maps.length)
@@ -131,6 +134,7 @@ function changeLevel(level){
 
 
     let positionsIndex = Math.floor(Math.random()*available_maps[mapPickIndex].start_spots.length)
+    console.log('Start Position',available_maps[mapPickIndex].start_spots[positionsIndex])
     gameState.player.setPosX(available_maps[mapPickIndex].start_spots[positionsIndex].x)
     gameState.player.setPosY(available_maps[mapPickIndex].start_spots[positionsIndex].y)
     gameState.endLocation.pos_x = available_maps[mapPickIndex].exit_spots[positionsIndex].x
