@@ -42,15 +42,31 @@
                     </div>
                 </div>
             </div>
-            <div id="instructions">
-                <button class="collapse-button">Collapse</button>
-                <p>This game is about escaping from a dark labyrinth. </p>
-                <p>As you approach the exit, the darkness will seem to fade. Follow the path back to the light.</p> 
-                <p>There are many levels to this maze. You might find yourself at the threshold only to be plunged deeper into darkness than before. 
-                    Do not lose your determination. Persist in the face of adversity.</p>
-                <p>You can navigate using the arrow keys in your keyboard or the buttons around the gaming area.</p>
+            <div id="text-sections">
+                <button class="accordion">Instructions</button>
+                <div class="panel">
+                    <p>This game is about escaping from a dark labyrinth. </p>
+                    <p>As you approach the exit, the darkness will seem to fade. Follow the path back to the light.</p> 
+                    <p>There are many levels to this maze. You might find yourself at the threshold only to be plunged deeper into darkness than before. 
+                        Do not lose your determination. Persist in the face of adversity.</p>
+                    <p>You can navigate using the arrow keys or WASD in your keyboard or the buttons around the gaming area.</p>
+                </div>
+                <button class="accordion">Inspiration</button>
+                <div class="panel">
+                    <p>This game was inspired by my wife's support as I pivoted from a career in Human Resources to Software Development</p>
+                    <p>That period of my life was marked by heavy doubts and the way forward did not seem clear to me at all. In essence, it felt like
+                        like I was making my way through a dark and difficult labyrinth.
+                    </p>
+                    <p>Her support and encouragement led me to take the leap and make the career pivot. She was - and is to this day - my guiding light in
+                        this dark maze.
+                    </p>
+                    <p>An initial version of this game was made for her back in 2015. This a recreation of that effort, with some improvements but mostly
+                        faithful to the original minimalist style.
+                    </p>
+                </div>
             </div>
         </div>
+        <script src="js/sidebar.js"></script>
         <script>
             initialize()
         </script>
