@@ -113,7 +113,7 @@ maps = [
 ]
 
 function changeLevel(level){
-    
+    pause()
     //Check to see if we are the end of the game
     if (level >= maps.length){
         paintEnd()
@@ -141,6 +141,7 @@ function changeLevel(level){
     gameState.endLocation.pos_y = available_maps[mapPickIndex].exit_spots[positionsIndex].y
 
     calculateBackgroundLayer(gameState.endLocation.pos_x, gameState.endLocation.pos_y)
+    unpause()
 
 }
 
@@ -207,6 +208,7 @@ function evaluateLevelEnd(){
     let end_y = gameState.endLocation.pos_y
 
     if (pX == end_x && pY == end_y){
+
         changeLevel(gameState.currentLevel+1)
     }
 }
@@ -339,7 +341,19 @@ function initialize(){
     changeLevel(0)
     showStartingWalls()
     gameState.player.show()
+    gameState.animationFrameId = requestAnimationFrame(draw)
+}
+
+function unpause(){
+    gameState.isPlaying = true;
     requestAnimationFrame(draw)
+    console.log('Unpausing')
+}
+
+function pause(){
+    console.log('Pausing')
+    cancelAnimationFrame(gameState.animationFrameId)
+    gameState.isPlaying = false;
 }
 
 function draw(){
@@ -356,5 +370,8 @@ function draw(){
 
 
     gameState.player.show()
-    requestAnimationFrame(draw)
+    if(gameState.isPlaying){
+        gameState.animationFrameId = requestAnimationFrame(draw)
+    }
+    
 }
