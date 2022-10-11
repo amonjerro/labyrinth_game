@@ -75,7 +75,7 @@ maps = [
                 [0,0,0,0,0,0,0,0]
             ],
             start_spots:[{x:1,y:1}, {x:6, y:2}, {x:5, y:3}],
-            exit_spots:[{x:5,y:3},{x:1, y:5},{x:6, y:2}]
+            exit_spots:[{x:5,y:3},{x:6, y:5},{x:6, y:2}]
         },
         {
             layout:[
@@ -88,7 +88,7 @@ maps = [
                 [0,0,0,0,0,0,0,0]
             ],
             start_spots:[{x:3, y:3}, {x:2, y:2}, {x:6, y:4}],
-            exit_spots:[{x:1, y:3}, {x:6, y:4}, {x:1,y:1}]
+            exit_spots:[{x:1, y:3}, {x:6, y:4}, {x:2,y:2}]
         }
     ],
     //Level 2
@@ -364,7 +364,9 @@ function draw(){
     }
 
     DIR_KEYS.forEach((key)=>{
-        gameState.borders[key].move()
+        if (gameState.borders[key].movementFunc){
+            gameState.borders[key].move()
+        }
         gameState.borders[key].draw()
     })
 
