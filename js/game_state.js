@@ -134,7 +134,6 @@ function changeLevel(level){
 
 
     let positionsIndex = Math.floor(Math.random()*available_maps[mapPickIndex].start_spots.length)
-    console.log('Start Position',available_maps[mapPickIndex].start_spots[positionsIndex])
     gameState.player.setPosX(available_maps[mapPickIndex].start_spots[positionsIndex].x)
     gameState.player.setPosY(available_maps[mapPickIndex].start_spots[positionsIndex].y)
     gameState.endLocation.pos_x = available_maps[mapPickIndex].exit_spots[positionsIndex].x
@@ -347,11 +346,9 @@ function initialize(){
 function unpause(){
     gameState.isPlaying = true;
     requestAnimationFrame(draw)
-    console.log('Unpausing')
 }
 
 function pause(){
-    console.log('Pausing')
     cancelAnimationFrame(gameState.animationFrameId)
     gameState.isPlaying = false;
 }
@@ -372,8 +369,7 @@ function draw(){
 
 
     gameState.player.show()
-    if(gameState.isPlaying){
-        gameState.animationFrameId = requestAnimationFrame(draw)
-    }
+    gameState.animationFrameId = requestAnimationFrame(draw)
+    
     
 }
