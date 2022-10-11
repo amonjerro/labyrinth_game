@@ -384,7 +384,6 @@ function drawEnd(){
     }
 
     if (gameState.drawingEnd){
-        console.log('Drawing End!')
         //Player needs to move left
         gameState.player.moveToEnd()
 
