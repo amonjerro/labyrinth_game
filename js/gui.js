@@ -303,6 +303,45 @@ function Player(x, y, size){
     }
 }
 
+function Companion (x,y, size) {
+    
+    this.size = size
+    this.maxFrames = 59
+    this.x = x-this.size*3
+    this.y = y
+    this.origin_x = this.x
+    this.currentFrame = 0
+    this.alphaChannelValue = 0
+    this.fillStyle = `rgba(0,0,0,0)`
+    this.movementOngoing = true
+    
+    this.show = () => {
+        gameState.cnvCtx.beginPath()
+        gameState.cnvCtx.fillStyle = this.fillStyle
+        gameState.cnvCtx.arc(this.x, this.y, this.size, 0, 2*Math.PI)
+        gameState.cnvCtx.fill()
+        gameState.cnvCtx.closePath()
+    }
+
+
+    this.update = () => {
+        this.currentFrame += 1
+
+        let inputX = this.currentFrame % this.maxFrames
+        let movementFactor = sigmoid(inputX / this.maxFrames)
+
+        if (inputX > 0 && this.movementOngoing){
+            this.fillStyle = `rgba(0,0,0,${movementFactor})`
+            this.x = this.origin_x + movementFactor*this.size
+        }
+
+        if (this.currentFrame == this.maxFrames){
+            this.movementOngoing = false
+        }
+
+    }
+}
+
 function getBackgroundValue(bg){
     let norm = normalize(bg, 0, gameState.maxBackground)
     let denorm = Math.floor(denormalize(norm, 0, HEX_VALUES.length-1))

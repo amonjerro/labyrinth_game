@@ -324,6 +324,7 @@ function initialize(){
     gameState.center.y = gameState.theCanvas.height/2
 
     gameState.player = new Player(gameState.center.x, gameState.center.y, gameState.player.size)
+    gameState.companion = new Companion(gameState.center.x, gameState.center.y, gameState.player.size)
 
     //Create Bottom Border
     gameState.borders['b'] = new Border(0, gameState.theCanvas.height-20, gameState.theCanvas.width, 20)
@@ -383,12 +384,21 @@ function drawEnd(){
     }
 
     if (gameState.drawingEnd){
+        console.log('Drawing End!')
         //Player needs to move left
         gameState.player.moveToEnd()
 
         //Companion needs to fade in from right
+        gameState.companion.update()
 
     }
 
-    gameState.animationFrameId = requestAnimationFrame(drawEnd)
+    gameState.player.show()
+    gameState.companion.show()
+    if(gameState.companion.movementOngoing || !gameState.player.atEnd){
+        gameState.animationFrameId = requestAnimationFrame(drawEnd)
+    } else {
+        cancelAnimationFrame(gameState.animationFrameId)
+    }
+        
 }
