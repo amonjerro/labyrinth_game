@@ -2,6 +2,7 @@ gameState = {
     theCanvas:null,
     cnvCtx:null,
     isPlaying:true,
+    drawingEnd:false,
     center:{
         x:null,
         y:null,
@@ -99,7 +100,7 @@ maps = [
                 [0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0],//1
                 [0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0],//2
                 [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0],//3
-                [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0],//4
+                [0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0],//4
                 [0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0],//5
                 [0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0],//6
                 [0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0],//7
@@ -107,7 +108,7 @@ maps = [
                //0  1  2  3  4  5  6  7  8  9  10
             ],
             start_spots:[{x:1,y:1},{x:9,y:1},{x:9,y:7},{x:3,y:5}],
-            exit_spots:[{x:6,y:7},{x:7,y:5},{x:4, y:4},{x:9,y:4}]
+            exit_spots:[{x:6,y:7},{x:7,y:5},{x:4, y:4},{x:8,y:4}]
         }
     ]
 ]
@@ -116,7 +117,8 @@ function changeLevel(level){
     pause()
     //Check to see if we are the end of the game
     if (level >= maps.length){
-        paintEnd()
+        cancelAnimationFrame(gameState.animationFrameId)
+        requestAnimationFrame(drawEnd)
         gameState.isPlaying = false
         return false
     }
@@ -371,5 +373,22 @@ function draw(){
     gameState.player.show()
     gameState.animationFrameId = requestAnimationFrame(draw)
     
-    
+}
+
+function drawEnd(){
+    if (gameState.player.isMoving){
+        gameState.player.moveFunctions[gameState.player.direction]()
+    } else {
+        gameState.drawingEnd = true
+    }
+
+    if (gameState.drawingEnd){
+        //Player needs to move left
+        gameState.player.moveToEnd()
+
+        //Companion needs to fade in from right
+
+    }
+
+    gameState.animationFrameId = requestAnimationFrame(drawEnd)
 }

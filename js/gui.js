@@ -161,6 +161,7 @@ function Player(x, y, size){
     this.size = size
     this.pos_x = null
     this.pos_y = null
+    this.atEnd = false
 
     this.isMoving = false
     this.direction = ''
@@ -277,35 +278,29 @@ function Player(x, y, size){
             this.x = this.midX
         }
     }
+
+    this.moveToEnd = () => {
+        this.currentFrame += 1
+        let inputX = this.currentFrame%this.maxFrames
+        let movementFactor = sigmoid(inputX/this.maxFrames)
+
+        if (inputX > 0 && !this.atEnd){
+            this.x = this.midX + (2*this.size * movementFactor)
+        }
+
+        if (this.currentFrame == this.maxFrames){
+            this.atEnd = true
+        }
+
+
+    }
+
     this.moveFunctions = {
         'l':this.moveLeft,
         'r':this.moveRight,
         'b':this.moveDown,
         't':this.moveUp
     }
-}
-
-function paintEnd(){
-    let centerX = gameState.center.x
-    let centerY = gameState.center.y
-    let canvasW = gameState.theCanvas.width
-    let canvasH = gameState.theCanvas.height
-    let pS = gameState.player.size
-
-    gameState.cnvCtx.clearRect(21,21, canvasW-42, canvasH-42)
-
-    gameState.cnvCtx.beginPath()
-    gameState.fillStyle = '#000'
-    gameState.cnvCtx.arc(centerX-pS-5, centerY, pS, 0, 2*Math.PI)
-    gameState.cnvCtx.fill()
-    gameState.cnvCtx.closePath()
-
-    gameState.cnvCtx.beginPath()
-    gameState.fillStyle = '#000'
-    gameState.cnvCtx.arc(centerX+pS+5, centerY, pS, 0, 2*Math.PI)
-    gameState.cnvCtx.fill()
-    gameState.cnvCtx.closePath()
-
 }
 
 function getBackgroundValue(bg){
