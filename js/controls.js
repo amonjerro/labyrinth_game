@@ -128,17 +128,21 @@ function setUpMovementCombinations(){
 }
 
 document.onkeydown = function (event){
-    switch(event.key){
-        case 'ArrowUp':
+    switch(event.key.toLowerCase()){
+        case 'w':
+        case 'arrowup':
             moveUp()
             break;
-        case 'ArrowDown':
+        case 's':
+        case 'arrowdown':
             moveDown()
             break;
-        case 'ArrowLeft':
+        case 'a':
+        case 'arrowleft':
             moveLeft()
             break;
-        case 'ArrowRight':
+        case 'd':
+        case 'arrowright':
             moveRight()
             break;
         default:
