@@ -179,9 +179,11 @@ function Player(x, y, size){
 
         paintBackground(21,21, canvasW-42, canvasH-42)
         gameState.cnvCtx.beginPath()
-        gameState.cnvCtx.fillStyle = '#000'
+        gameState.cnvCtx.fillStyle = '#1B2A41'
+        gameState.cnvCtx.strokeStyle = '#0C1821'
         gameState.cnvCtx.arc(this.x, this.y, this.size, 0, 2*Math.PI)
         gameState.cnvCtx.fill()
+        gameState.cnvCtx.stroke()
         gameState.cnvCtx.closePath()
     }
 
@@ -306,13 +308,13 @@ function Player(x, y, size){
 function Companion (x,y, size) {
     
     this.size = size
-    this.maxFrames = 59
+    this.maxFrames = 60
     this.x = x-this.size*3
     this.y = y
     this.origin_x = this.x
     this.currentFrame = 0
     this.alphaChannelValue = 0
-    this.fillStyle = `rgba(0,0,0,0)`
+    this.fillStyle = `rgba(153,2,143,0)`
     this.movementOngoing = true
     
     this.show = () => {
@@ -331,11 +333,11 @@ function Companion (x,y, size) {
         let movementFactor = sigmoid(inputX / this.maxFrames)
 
         if (inputX > 0 && this.movementOngoing){
-            this.fillStyle = `rgba(0,0,0,${movementFactor})`
+            this.fillStyle = `rgba(153,2,143,${movementFactor})`
             this.x = this.origin_x + movementFactor*this.size
         }
 
-        if (this.currentFrame == this.maxFrames){
+        if (this.currentFrame == this.maxFrames-1){
             this.movementOngoing = false
         }
 
