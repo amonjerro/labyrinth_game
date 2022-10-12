@@ -19,7 +19,7 @@ gameState = {
     currentLayout:null,
     backgroundGradientLayout:null,
     maxBackground:0,
-    currentLevel:0,
+    currentLevel:-1,
     borders:{
         'l':null,
         'r':null,
@@ -37,7 +37,7 @@ const INVERSE_DIRS = {
     'b':'t'
 }
 
-maps = [
+const maps = [
     //Level_0
     [
         {
@@ -113,17 +113,13 @@ maps = [
     ]
 ]
 
-function changeLevel(level){
-    pause()
-    //Check to see if we are the end of the game
-    if (level >= maps.length){
-        cancelAnimationFrame(gameState.animationFrameId)
-        requestAnimationFrame(drawEnd)
-        gameState.isPlaying = false
-        return false
-    }
+function changeLevel(){
+    gameState.currentLevel += 1
+    if (gameState.currentLevel > 0){
+        hideLevelTransition()
+    } 
 
-    gameState.currentLevel = level
+    pause()
 
     //Pick information
     let available_maps = maps[gameState.currentLevel]
@@ -134,7 +130,6 @@ function changeLevel(level){
         gameState.backgroundGradientLayout.push(gameState.currentLayout[i].slice())
     }
 
-
     let positionsIndex = Math.floor(Math.random()*available_maps[mapPickIndex].start_spots.length)
     gameState.player.setPosX(available_maps[mapPickIndex].start_spots[positionsIndex].x)
     gameState.player.setPosY(available_maps[mapPickIndex].start_spots[positionsIndex].y)
@@ -142,6 +137,7 @@ function changeLevel(level){
     gameState.endLocation.pos_y = available_maps[mapPickIndex].exit_spots[positionsIndex].y
 
     calculateBackgroundLayer(gameState.endLocation.pos_x, gameState.endLocation.pos_y)
+    showStartingWalls()
     unpause()
 
 }
@@ -209,9 +205,9 @@ function evaluateLevelEnd(){
     let end_y = gameState.endLocation.pos_y
 
     if (pX == end_x && pY == end_y){
-
-        changeLevel(gameState.currentLevel+1)
+        return true
     }
+    return false
 }
 
 function showStartingWalls(){
@@ -340,8 +336,7 @@ function initialize(){
 
     setUpMovementCombinations()
 
-    changeLevel(0)
-    showStartingWalls()
+    changeLevel()
     gameState.player.show()
     gameState.animationFrameId = requestAnimationFrame(draw)
 }

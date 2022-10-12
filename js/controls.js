@@ -15,10 +15,14 @@ function moveUp(){
         gameState.player.pos_y -= 1
         movePlayer(dir)
 
-        evaluateLevelEnd()
+        let level_ended = evaluateLevelEnd()
         //Animate Walls
         shouldAnimateWalls(dir)
-        
+        if(level_ended){
+            gameState.isPlaying = false
+            prepareLevelEnd()
+        }
+
     }
 }
 function moveDown(){
@@ -35,11 +39,14 @@ function moveDown(){
         //Update position
         gameState.player.pos_y += 1
         movePlayer(dir)
-        
-        evaluateLevelEnd()
 
         //Animate Walls
+        let level_ended = evaluateLevelEnd()
         shouldAnimateWalls(dir)
+        if(level_ended){
+            gameState.isPlaying = false
+            prepareLevelEnd()
+        }
         
     }
 }
@@ -58,10 +65,13 @@ function moveLeft(){
         //Update position
         gameState.player.pos_x -= 1
         movePlayer(dir)
-        evaluateLevelEnd()
-
+        let level_ended = evaluateLevelEnd()
         //Animate Walls
         shouldAnimateWalls(dir)
+        if(level_ended){
+            gameState.isPlaying = false
+            prepareLevelEnd()
+        }
         
     }
 }
@@ -80,10 +90,13 @@ function moveRight(){
         //Update position
         gameState.player.pos_x += 1
         movePlayer(dir)
-        evaluateLevelEnd()
-
+        let level_ended = evaluateLevelEnd()
         //Animate Walls
         shouldAnimateWalls(dir)
+        if(level_ended){
+            gameState.isPlaying = false
+            prepareLevelEnd()
+        }
         
     }
 }

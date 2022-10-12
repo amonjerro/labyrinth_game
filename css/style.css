@@ -84,6 +84,16 @@
     margin-left: 5px;
   }
   
-  .active:after {
+.active:after {
     content: "\2796"; /* Unicode character for "minus" sign (-) */
-  }
+}
+
+.invisible{
+    opacity:0;
+}
+.informative-text{
+    text-align:center;
+}
+.fade{
+    transition: opacity 0.4s ease-out;
+}

@@ -388,3 +388,23 @@ function movePlayer(dir){
         gameState.player.direction = dir
     }
 }
+
+function prepareLevelEnd(){
+    if (gameState.currentLevel == maps.length - 1){
+        //Show the ending text
+        let transitionDiv = document.getElementById('ending-text')
+        transitionDiv.classList.toggle('invisible')
+         //Check to see if we are the end of the game
+        cancelAnimationFrame(gameState.animationFrameId)
+        requestAnimationFrame(drawEnd)
+    } else {
+        // Show the transition button and text
+        let transitionDiv = document.getElementById('transition-text')
+        transitionDiv.classList.toggle('invisible')
+    }
+}
+
+function hideLevelTransition(){
+    let transitionDiv = document.getElementById('transition-text')
+    transitionDiv.classList.toggle('invisible')
+}
